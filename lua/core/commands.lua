@@ -1,4 +1,4 @@
-# Comando per compilare in python direttamente
+-- Comando per compilare in python direttamente
 
 vim.api.nvim_create_user_command("PP", function(opts)
   vim.cmd("silent! write")

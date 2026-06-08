@@ -54,6 +54,7 @@ return {
 				"eslint_d", -- js linter
 				"php-cs-fixer", -- php formatter
 				"sql-formatter", -- sql formatter
+				"air", -- R formatter
 			},
 		})
 	end,

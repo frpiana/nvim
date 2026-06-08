@@ -22,6 +22,7 @@ return {
         python = { "isort", "black" },
         php = { "php_cs_fixer" },
         sql = { "sql_formatter" },
+        r = { "air" },
       },
       format_on_save = {
         lsp_format = "fallback", -- ex lsp_fallback = true (deprecato)

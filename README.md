@@ -9,6 +9,8 @@ La config è identica sulle due macchine: tutto ciò che dipende dall'architettu
 (binari Mason, parser treesitter, telescope-fzf-native) viene installato/compilato
 localmente in `~/.local/share/nvim` e non passa da questa repo.
 
+📖 **[Guida ai plugin](docs/PLUGINS.md)** — cosa fa ogni plugin e con quali tasti.
+
 ## Prerequisiti
 
 Da installare su **entrambe** le macchine (con Homebrew: prefix `/opt/homebrew` su

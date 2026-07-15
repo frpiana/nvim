@@ -9,9 +9,10 @@ return {
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
-    vim.keymap.set("n", "s", substitute.operator, { desc = "Substitute with motion" })
-    vim.keymap.set("n", "ss", substitute.line, { desc = "Substitute line" })
-    vim.keymap.set("n", "S", substitute.eol, { desc = "Substitute to end of line" })
-    vim.keymap.set("x", "s", substitute.visual, { desc = "Substitute in visual mode" })
+    -- 'gs' invece di 's': 's' ora è il jump di flash.nvim
+    -- (per sostituire fino a fine riga: gs$ — è un normale operatore+motion)
+    vim.keymap.set("n", "gs", substitute.operator, { desc = "Substitute with motion" })
+    vim.keymap.set("n", "gss", substitute.line, { desc = "Substitute line" })
+    vim.keymap.set("x", "gs", substitute.visual, { desc = "Substitute in visual mode" })
   end,
 }

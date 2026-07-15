@@ -25,11 +25,4 @@ return {
 			enabled = false, -- non piegare automaticamente commenti/import all'apertura
 		},
 	},
-	config = function(_, opts)
-		require("origami").setup(opts)
-		-- Debug: verifica se origami è caricato
-		vim.api.nvim_create_user_command("OrigamiDebug", function()
-			vim.notify("Origami è caricato: " .. tostring(package.loaded["origami"] ~= nil))
-		end, {})
-	end,
 }

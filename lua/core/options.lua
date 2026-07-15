@@ -42,3 +42,9 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- persistent undo (senza swapfile è la rete di sicurezza: undo anche dopo aver chiuso il file)
+opt.undofile = true
+
+-- session options raccomandate da auto-session (salva anche opzioni locali di finestra/buffer)
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

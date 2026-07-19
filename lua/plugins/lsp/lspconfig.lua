@@ -62,6 +62,23 @@ return {
 			},
 		})
 
+		-- Pyright: usa automaticamente il venv del progetto se esiste
+		-- (.venv/ o venv/ nella root), senza doverlo attivare prima di aprire nvim
+		vim.lsp.config("pyright", {
+			before_init = function(_, config)
+				local root = config.root_dir or vim.fn.getcwd()
+				for _, name in ipairs({ ".venv", "venv" }) do
+					local python = root .. "/" .. name .. "/bin/python"
+					if vim.uv.fs_stat(python) then
+						config.settings = config.settings or {}
+						config.settings.python = config.settings.python or {}
+						config.settings.python.pythonPath = python
+						break
+					end
+				end
+			end,
+		})
+
 		-- Emmet anche nei file PHP (di default non sono inclusi)
 		vim.lsp.config("emmet_ls", {
 			filetypes = { "html", "css", "scss", "sass", "less", "php", "javascript", "javascriptreact", "typescriptreact" },

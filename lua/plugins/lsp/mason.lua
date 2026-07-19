@@ -50,7 +50,7 @@ return {
 				"stylua", -- lua formatter
 				"isort", -- python formatter
 				"black", -- python formatter
-				"pylint", -- python linter
+				"ruff", -- python linter (binario unico: non dipende da venv)
 				"eslint_d", -- js linter
 				"php-cs-fixer", -- php formatter
 				"sql-formatter", -- sql formatter

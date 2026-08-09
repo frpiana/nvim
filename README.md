@@ -24,7 +24,7 @@ Apple Silicon, `/usr/local` su Intel):
 | `ripgrep` | `Telescope live_grep` |
 | `lazygit` | plugin lazygit.nvim |
 | `node` | pyright, ts_ls, prettier, eslint_d, ... |
-| `python3` | black, isort, pylint |
+| `python3` | black, isort |
 | `php` | intelephense, php-cs-fixer |
 | `R` + pacchetto `languageserver` | r_language_server |
 | un Nerd Font nel terminale | icone (devicons, lualine, alpha) |

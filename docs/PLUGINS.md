@@ -271,7 +271,7 @@ Installano automaticamente al primo avvio:
   emmet_ls, ts_ls (JS/TS), intelephense (PHP), sqlls
 - **Formatter**: prettier, stylua, isort, black, php-cs-fixer,
   sql-formatter, air (R)
-- **Linter**: pylint, eslint_d
+- **Linter**: ruff (Python), eslint_d
 
 Solo i server nella lista di `automatic_enable` vengono accesi
 (`lua/plugins/lsp/mason.lua`).
@@ -293,6 +293,12 @@ attivano quando un server si aggancia al buffer:
 | `<leader>rs` | riavvia il server |
 
 Extra: lua_ls riconosce la globale `vim`; emmet attivo anche nei file PHP.
+
+**Pyright + venv**: se nella root del progetto c'è una cartella `.venv/` o
+`venv/`, pyright usa automaticamente quel Python per risolvere gli import —
+non serve attivare il venv prima di aprire nvim. Se il venv sta altrove, la
+via robusta è un `pyrightconfig.json` nel progetto con
+`{ "venvPath": ".", "venv": "nome-cartella" }`.
 
 ### nvim-lsp-file-operations (antosha417/nvim-lsp-file-operations)
 Quando rinomini/sposti un file da nvim-tree, aggiorna gli import nei file che
@@ -329,8 +335,17 @@ isort+black (python), php-cs-fixer, sql-formatter, air (R).
 
 ### nvim-lint (mfussenegger/nvim-lint)
 Linting asincrono su apertura/salvataggio/uscita da insert: eslint_d per
-JS/TS/React/Svelte, pylint per Python. I risultati appaiono come diagnostica
-normale (quindi anche in Trouble).
+JS/TS/React/Svelte, ruff per Python. I risultati appaiono come diagnostica
+normale (quindi anche in Trouble). La config salta i linter il cui binario
+non è installato, quindi niente errori ENOENT se un tool manca.
+
+Ruff è un binario unico (non un venv Python), quindi non risente degli
+aggiornamenti di Python come faceva pylint. Non controlla gli import
+(`import numpy` ecc.): quello lo fa già pyright, che con il rilevamento
+automatico del venv (vedi sotto) risolve i pacchetti del progetto.
+
+Per silenziare regole di stile crea un `pyproject.toml`/`ruff.toml` nel
+progetto (es. `[tool.ruff.lint] ignore = ["D100", "D103"]` per le docstring).
 
 | Tasto | Cosa fa |
 | --- | --- |

@@ -48,4 +48,14 @@ vim.api.nvim_create_autocmd("FocusGained", {
   end,
 })
 
+-- L'applicazione in init.lua avviene presto: dashboard e ripristino della
+-- sessione possono scavalcare gli highlight derivati (es. bufferline).
+-- Riapplica a fine avvio e dopo ogni caricamento sessione, a bocce ferme.
+vim.api.nvim_create_autocmd({ "VimEnter", "SessionLoadPost" }, {
+  group = vim.api.nvim_create_augroup("ActiveThemeStartup", { clear = true }),
+  callback = function()
+    vim.schedule(M.apply)
+  end,
+})
+
 return M

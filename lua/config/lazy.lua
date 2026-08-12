@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Inizializza lazy.nvim
 require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } }, {
 	-- colorscheme usato durante l'installazione dei plugin (evita il flash coi colori di default)
-	install = { colorscheme = { "tokyonight" } },
+	install = { colorscheme = { "tokyonight", "catppuccin" } },
 	checker = {
 		enabled = true,
 		notify = false,

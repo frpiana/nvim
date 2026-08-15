@@ -44,6 +44,45 @@ nvim
 Al primo avvio lazy.nvim si auto-installa, clona i plugin **alle versioni del
 lockfile** e Mason scarica LSP/formatter/linter per l'architettura corrente.
 
+## Setup su Debian (trixie)
+
+Il pacchetto apt di neovim è fermo a 0.10 (il backport di 0.11 è stato
+rifiutato dal maintainer): va installato il tarball ufficiale. Il resto dei
+prerequisiti arriva da apt/npm — l'elenco sotto è quello minimo verificato,
+ogni voce mancante produce errori di installazione in Mason o treesitter.
+
+```bash
+# neovim >= 0.11 dal tarball ufficiale (niente FUSE, a differenza dell'AppImage)
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+sudo ln -sf /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+sudo apt remove neovim    # se c'era: evita ambiguità nel PATH (poi hash -r)
+
+# prerequisiti di base
+sudo apt install build-essential ripgrep curl nodejs npm python3.13-venv
+sudo npm install -g tree-sitter-cli    # >= 0.25, la CLI non è nei repo Debian
+
+# solo se serve R: runtime + librerie per compilare languageserver e dipendenze
+sudo apt install r-base libcurl4-openssl-dev libssl-dev libgit2-dev libssh2-1-dev
+
+# solo se serve PHP (intelephense, php-cs-fixer)
+sudo apt install php
+```
+
+Poi `nvim` e `:Lazy restore`, come sul Mac. A cosa serve cosa:
+
+- `build-essential` — compila i parser treesitter e telescope-fzf-native
+  (senza, la build di fzf-native fallisce **in silenzio**: `libfzf.so`
+  mancante al primo `:Telescope`; fix: `:Lazy build telescope-fzf-native.nvim`)
+- `python3.13-venv` — Mason installa black/isort dentro un venv; senza, i
+  venv non si creano (`ensurepip is not available`)
+- `curl` — usato da Mason per i download (senza ripiega su wget, con errori
+  ENOENT innocui ma rumorosi nel `:MasonLog`)
+- `lazygit` non è pacchettizzato in trixie: binario dalle
+  [release ufficiali](https://github.com/jesseduffield/lazygit/releases)
+- i font Nerd (JetBrainsMono e Symbols) vanno installati a mano — vedi il
+  README di [starship](https://github.com/frpiana/starship), sezione Linux
+
 ## Tenere allineate le due macchine
 
 Il file `lazy-lock.json` è versionato apposta:
